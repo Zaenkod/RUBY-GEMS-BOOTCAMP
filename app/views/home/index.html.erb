@@ -2,15 +2,76 @@
 <p>Find me in app/views/home/index.html.erb</p>
 <p style="color: green"><%= notice %></p>
 
-<h1>Courses</h1>
-
-<div id="courses">
-  <% @courses.each do |course| %>
-    <%= render course %>
-    <p>
-      <%= link_to "Show this course", course_path %>
-    </p>
+<div class="jumbotron display-10">
+  What do you want to learn today ?
+</div>
+<div class="form-inline my-2 my-lg-0">
+  <%= form_tag(courses_path, method: :get) do %>
+    <div class="input-group">
+      <%= text_field_tag :title, params[:title], autocomplete: 'off', placeholder: 'Search', class: 'form-control-sm' %>
+        <span class="input-group-append">
+          <button class="btn btn-primary btn-sm" type="submit">
+            <span aria-hidden="true" class="fa fa-search"></span>
+          </button>
+        </span>
+    </div>
   <% end %>
 </div>
 
+<div class="card-group">
+  <div class="card card-body">
+    <h1 class="fa fa-graduation-cap"><%= Course.count %> online courses</h1>
+      <div class="row">
+        Explore a variety of fresh topics
+      </div>
+  </div>
+  <div class="card card-body">
+    <h1 class="fa fa-chalkboard-teacher"><%= Course.distinct.count(:user_id) %> Expert instructors</h1>
+      <div class="row">
+        Find the right instructor for you
+      </div>
+  </div>
+  <div class="card card-body">
+    <h1 class="fa fa-user-graduate"><%= User.count %> active learners</h1>
+      <div class="row">
+        Join the knowledge sharing community
+      </div>
+  </div>
+  <div class="card card-body">
+    <h1 class="fa fa-infinity">Lifetime access</h1>
+    <div class="row">
+      Learn on your schedule
+    </div>
+  </div>
+</div>
+<hr>
+<h2>Popular courses</h2>
+<div class="card-columns d-flex">
+    <% @courses.each do |course| %>
+    <div>
+      <%= render 'courses/course', course: course %>
+    </div>
+  <% end %>
+</div>
+<hr>
+
+<h2>Top rated courses</h2>
+<div class="card-columns d-flex">
+    <% @courses.each do |course| %>
+    <div>
+      <%= render 'courses/course', course: course %>
+    </div>
+  <% end %>
+</div>
+<hr>
+
+<h2>Most recent courses</h2>
+<div class="card-columns d-flex">
+    <% @recent_courses.each do |course| %>
+    <div>
+      <%= render 'courses/course', course: course %>
+    </div>
+  <% end %>
+</div>
+<hr>
 <%= link_to "New course", new_course_path %>

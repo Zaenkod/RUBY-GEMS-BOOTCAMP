@@ -1,13 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Courses</h1>
+<h1>Courses : <%= @courses.count %></h1>
 
 <div id="courses">
   <% @courses.each do |course| %>
     <%= render course %>
-    <p>
-      <%= link_to "Show this course", course %>
-    </p>
   <% end %>
 </div>
 
